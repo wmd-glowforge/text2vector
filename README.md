@@ -4,6 +4,8 @@ Text2Vector is a simple HTML page created to be able to generate vector text for
 
 The original discussion started at: https://community.glowforge.com/t/text2vector-free-vector-text-generator/63916
 
+Learn more about Glowforge: https://glowforge.us/f/MAJFORQN
+
 ## Installation
 
 Text2Vector can simply run on your computer, in a web browser.
