@@ -405,11 +405,11 @@ function pageLoad() {
 				<div class="row">
 				  <div class="col-md-6 mb-3">
 					<label for="size">Font Size</label>
-					<input id="size" type="number" class="form-control" onkeydown="return allowNumbers(event,'sizeValue')" onpaste="return false" onchange="updateValue(event,'sizeValue')" oninput="updateValue(event,'sizeValue')">
+					<input id="size" type="number" min="6" class="form-control" onkeydown="return allowNumbers(event,'sizeValue')" onpaste="return false" onchange="updateValue(event,'sizeValue')">
 				  </div>
 				  <div class="col-md-6 mb-3">
 					<label for="lineSpacing">Line Spacing</label>
-					<input id="lineSpacing" type="number" class="form-control" onkeydown="return allowNumbers(event,'lineSpacing')" onpaste="return false" onkeyup="updateValue(event,'lineSpacing')" oninput="updateValue(event,'lineSpacing')">
+					<input id="lineSpacing" type="number" min="0" class="form-control" onkeydown="return allowNumbers(event,'lineSpacing')" onpaste="return false" onchange="updateValue(event,'lineSpacing')">
 				  </div>
 				</div>
 
@@ -424,7 +424,7 @@ function pageLoad() {
 				  </div>
 				  <div class="col-md-6 mb-3">
 					<label for="tracking">Tracking</label>
-					<input id="tracking" type="number" class="form-control" onkeydown="return allowNumbers(event,'tracking')" onpaste="return false" onkeyup="updateValue(event,'tracking')" oninput="updateValue(event,'tracking')">
+					<input id="tracking" type="number" min="-30" class="form-control" onkeydown="return allowNumbers(event,'tracking')" onpaste="return false" onchange="updateValue(event,'tracking')">
 				  </div>
 				</div>
 				<hr class="mb-4">
@@ -441,7 +441,7 @@ function pageLoad() {
 							<div class="col-md-6 mb-3">
 						  	<div class="form-group">
 							<label for="angle">Angle</label>
-							<input id="angle" type="number" class="form-control" onkeydown="return allowNumbers(event,'angle')" onpaste="return false" onkeyup="updateValue(event,'angle')" oninput="updateValue(event,'angle')">
+							<input id="angle" type="number" min="-45" max="45" class="form-control" onkeydown="return allowNumbers(event,'angle')" onpaste="return false" onchange="updateValue(event,'angle')">
 					    </div>
 				    </div>
 				</div>
