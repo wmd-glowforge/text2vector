@@ -3,11 +3,13 @@
 <head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <title>Text2Vector</title>
+<link rel="stylesheet" href="Text2Vector.css">
 <script src="kerningtable.data"></script>
 <script>
 // variables to make the path notation easier to type.
-var a = 'a', h = 'h', v = 'v', l = 'l', m = 'm', m0 = 'm0,', c = ',', c0 = ',0';
+var a = 'a', h = 'h', v = 'v', l = 'l', m = 'm', m0 = 'm0,', c = ',', c0 = ',0', z = 'z';
 var config = {
+    font: "Text2Vector",
 	text: "",
 	size: 1, sizeValue: 36,
 	tracking: 10,
@@ -29,95 +31,8 @@ var minValue = {
 var maxValue = {
 	angle: 45
 }
-var letters = {
-	'A': {start: [0,50], instructions: [l,20,c,-50,l,20,c,50,m,-30,c,-25,l,20,',0'], width:40},
-	'B': {start: [0,20], instructions: [h,10,a,10,c,10,' 0 0 0 ',0,c,-20,h,-10,v,50,h,10,a,15,c,15,' 0 0 0 ',0,c,-30], width:25},
-	'C': {start: [30,10], instructions: [a,15,c,25,' 0 1 0 ',0,c,30], width:30},
-	'D': {start: [0,0], instructions: [v,50,h,10,a,15,c,25,' 0 0 0 ',0,c,-50,h,-10], width:25},
-	'E': {start: [25,0], instructions: [h,-25,v,50,h,25,m,-25,c,-30,h,15], width:25},
-	'F': {start: [25,0], instructions: [h,-25,v,50,m0,-30,h,15], width:25},
-	'G': {start: [30,10], instructions: [a,15,c,25,' 0 1 0 ',0,c,30,m0,10,v,-20,h,-10], width:30},
-	'H': {start: [3,0], instructions: [v,50,m0,-25,h,25,m0,-25,v,50], width:30},
-	'I': {start: [5,0], instructions: [h,10,m,-5,c0,v,50,m,-5,c0,h,10], width:20},
-	'J': {start: [27,0], instructions: [v,35,a,12.5,c,15,' 0 0 1 ',-25,c0], width:30},
-	'K': {start: [3,0], instructions: [v,50,m,25,c0,l,-24,c,-25,l,24,c,-25], width:30},
-	'L': {start: [3,0], instructions: [v,50,h,25], width:30},
-	'M': {start: [3,50], instructions: [v,-50,l,15,c,30,l,15,c,-30,v,50], width:35},
-	'N': {start: [3,50], instructions: [v,-50,l,25,c,50,v,-50], width:30},
-	'O': {start: [18,0], instructions: [a,15,c,25,' 0 1 0 ',0.5,c0], width:35},
-	'P': {start: [0,50], instructions: [v,-50,h,10,a,15,c,12.5,' 0 0 1 ',0,c,25,h,-9.5], width:25},
-	'Q': {start: [15,0], instructions: [a,15,c,25,' 0 1 0 ',0.5,c0,m,4.5,c,40,l,10,c,10], width:30},
-	'R': {start: [0,50], instructions: [v,-50,h,10,a,15,c,12.5,' 0 0 1 ',0,c,25,h,-9.5,m,9.5,c,0.5,l,15,c,24.5], width:25},
-	'S': {start: [25,12.5], instructions: [a,12.5,c,12.5,' 0 1 0 ',-12.5,c,12.5,a,12.5,c,12.5,' 0 1 1 ',-12.5,c,12.5], width:25},
-	'T': {start: [0,0], instructions: [h,25,m,-12.5,c0,v,50], width:25},
-	'U': {start: [3,0], instructions: [v,35,a,12.5,c,15,' 0 0 0 ',25,c0,v,-35], width:30},
-	'V': {start: [0,0], instructions: [l,12.5,c,50,l,12.5,c,-50], width:25},
-	'W': {start: [3,0], instructions: [v,50,l,15,c,-30,l,15,c,30,v,-50], width:35},
-	'X': {start: [0,0], instructions: [l,25,c,50,m,-25,c0,l,25,c,-50], width:25},
-	'Y': {start: [0,0], instructions: [l,12.5,c,25,v,25,m0,-25,l,12.5,c,-25], width:25},
-	'Z': {start: [0,0], instructions: [h,25,l,-25,c,50,h,25], width:25},
-	' ': {start: [0,0], instructions: [], width:15},
-	'a': {start: [25,20], instructions: [v,30,m0,-5,a,13,c,15,' 0 1 1 ',0,c,-20], width:25},
-	'b': {start: [3,0], instructions: [v,50,m0,-5,a,13,c,15,' 0 1 0 ',0,c,-20], width:25},
-	'c': {start: [25,25], instructions: [a,13,c,15,' 0 1 0 ',0,c,20], width:25},
-	'd': {start: [25,0], instructions: [v,50,m0,-5,a,13,c,15,' 0 1 1 ',0,c,-20], width:25},
-	'e': {start: [23,43], instructions: [a,12.5,c,15,' 0 1 1 ',1,c,-12,h,-23], width:25},
-	'f': {start: [25,10], instructions: [a,10,c,10,' 0 0 0 ',-20,c0,v,40,m,-5,c,-25,h,15], width:20},
-	'g': {start: [25,20], instructions: [v,40,a,13,c,15,' 0 0 1 ',-20,c0,m,20,c,-15,a,13,c,15,' 0 1 1 ',0,c,-20], width:27},
-	'h': {start: [3,0], instructions: [v,50,m,0.5,-25,a,13,c,15,' 0 0 1 ',20,c0,v,25], width:25},
-	'i': {start: [5,10], instructions: [a,1,c,1,' 0 1 1 ',0,c,0.5,m,1,c,9.5,v,30], width:10},
-	'j': {start: [5,10], instructions: [a,1,c,1,' 0 1 1 ',0,c,0.5,m,1,c,9.5,v,40,a,5,c,5,' 0 0 1 ',-10,c0], width:12},
-	'k': {start: [3,0], instructions: [v,50,m,22,c,-30,l,-21,c,15,l,21,c,15], width:25},
-	'l': {start: [5,0], instructions: [v,50], width:10},	      
-	'm': {start: [0,20], instructions: [v,30,m,0.5,c,-25,a,13,c,15,' 0 0 1 ',20,c0,v,25,m,0.5,c,-25,a,13,c,15,' 0 0 1 ',20,c0,v,25], width:45},
-	'n': {start: [2,20], instructions: [v,30,m,0.5,c,-25,a,13,c,15,' 0 0 1 ',20,c0,v,25], width:25},
-	'o': {start: [14,20], instructions: [a,15,c,15,' 0 1 0 ',0.5,c0], width:30},
-	'p': {start: [2,20], instructions: [v,50,m0,-45,a,13,c,15,' 0 1 1 ',0,c,20], width:25},
-	'q': {start: [25,20], instructions: [v,50,m0,-45,a,13,c,15,' 0 1 0 0,',20], width:25},
-	'r': {start: [3,20], instructions: [v,30,m,0.5,c,-25,a,13,c,15,' 0 0 1 ',20,c0], width:25},
-	's': {start: [25,27.5], instructions: [a,12.5,c,7.5,' 0 1 0 ',-12.5,c,7.5,a,12.5,c,7.5,' 0 1 1 ',-12.5,c,7.5], width:25},
-	't': {start: [10,10], instructions: [v,40,m,-10,c,-31,h,20], width:20},
-	'u': {start: [0,20], instructions: [v,15,a,12.5,c,15,' 0 0 0 ',25,c0,v,-15], width:25},
-	'v': {start: [0,20], instructions: [l,12.5,c,30,l,12.5,c,-30], width:25},
-	'w': {start: [0,20], instructions: [l,10,c,30,l,10,c,-20,l,10,c,20,l,10,c,-30], width:40},
-	'x': {start: [0,20], instructions: [l,25,c,30,m,-25,c0,l,25,c,-30], width:25},
-	'y': {start: [0,20], instructions: [l,10,c,30,m,15,c,-30,l,-23,c,50], width:25},
-	'z': {start: [0,20], instructions: [h,25,l,-25,c,30,h,25], width:25},
-	'1': {start: [5,5], instructions: [l,5,c,-5,v,50,m,-5,c0,h,10], width:20},
-	'2': {start: [0,12.5], instructions: [a,12.5,c,12.5,' 0 1 1 ',21,c,8.5,l,-21,c,29,h,25], width:25},
-	'3': {start: [0,12.5], instructions: [a,12.5,c,12.5,' 0 1 1 ',12.5,c,12.5,a,12.5,c,12.5,' 0 1 1 ',-12.5,c,12.5], width:25},
-	'4': {start: [25,35], instructions: [h,-25,l,20,c,-35,v,50], width:25},
-	'5': {start: [25,0], instructions: [h,-25,v,20,h,12.5,a,12.5,c,15,' 0 1 1 ',-12.5,c,15], width:25},
-	'6': {start: [25,12.5], instructions: [a,12.5,c,12.5,' 0 1 0 ',-25,c0,v,25,a,12.5,c,12.5,' 0 1 0 ',0.5,c,-2], width:25},
-	'7': {start: [0,0], instructions: [h,25,l,-25,c,50], width:25},
-	'8': {start: [12,25], instructions: [a,12.5,c,12.5,' 0 1 1 ',0.5,c0,a,12.5,c,12.5,' 0 1 0 ',0.5,c0], width:25},
-	'9': {start: [25,12.5], instructions: [a,12.5,c,12.5,' 0 1 0 ',0,c,0.5,v,37.5], width:25},
-	'0': {start: [12.5,0], instructions: [a,12.5,c,25,' 0 1 0 ',0.05,c0], width:25},
-	'.': {start: [5,50], instructions: [a,1,c,1,' 0 1 1 ',0,c,0.5], width:10},
-	'-': {start: [2,30], instructions: [h,20], width:25},
-	'+': {start: [2,30], instructions: [h,20,m,-10,c,10,v,-20], width:25},
-	'*': {start: [2,15], instructions: [l,20,c,10,m0,-10,l,-20,c,10,m,10,c,5,v,-20], width:25},
-	'/': {start: [0,50], instructions: [l,25,c,-50], width:25},
-	"'": {start: [5,5], instructions: [v,10], width:10},
-	'"': {start: [5,0], instructions: [v,10,m,5,c0,v,-10], width:15},
-	'!': {start: [5,0], instructions: [v,40,m,-0.5,c,10,a,1,c,1,' 0 1 1 ',0,c,0.5], width:10},
-	'&': {start: [25,50], instructions: [l,-20,c,-40,a,7.5,c,10,' 0 0 1 ',15,c0,l,-15,c,20,a,11.5,c,12.5,' 0 1 0 ',20,c,5], width:25},
-	',': {start: [5,45], instructions: [v,10], width:10},
-	'?': {start: [0,12.5], instructions: [a,12.5,c,12.5,' 0 1 1 ',12.5,c,12.5,v,15,m,-0.5,c,10,a,1,c,1,' 0 1 1 ',0,c,0.5], width:25},
-	':': {start: [4.5,20], instructions: [a,1,c,1,' 0 1 1 ',0,c,0.5,m,-0.5,c,25,a,1,c,1,' 0 1 1 0,',0.5], width:10},
-	';': {start: [4.5,20], instructions: [a,1,c,1,' 0 1 1 ',0,c,0.5,m,0.5,c,25,v,10], width:10},
-	'`': {start: [2,5], instructions: [l,5,c,5], width:10},
-	'~': {start: [1,25], instructions: [a,6,c,4,' 0 0 1 ',12,c,-2,a,6,c,4,' 0 0 0 ',12,c,-2], width:25},
-	'@': {start: [20,40], instructions: [a,6,c,7.5,' 0 1 1 ',0,c,-10,m0,-3,v,14,a,3.5,c,3,' 0 0 0 ',7,c0,a,12.5,c,18,' 0 1 0 ',-4,c,8], width:25},
-	'#': {start: [10,15], instructions: [v,30,m,10,c0,v,-30,m,10,c,10,h,-30,m0,10,h,30], width:30},
-	'$': {start: [25,12.5], instructions: [a,12.5,c,10,' 0 1 0 ',-12.5,c,12.5,a,12.5,c,10,' 0 1 1 ',-12.5,c,12.5,m,8.5,c,12.5,v,-50,m,8,c0,v,50], width:25},
-	'%': {start: [7.5,15], instructions: [a,5,c,5,' 0 1 0 ',0.5,c0,m,15,c,30,a,5,c,5,' 0 1 0 ',-0.5,c0,m,-20,c0,l,25,c,-30], width:25},
-	'^': {start: [2,10], instructions: [l,5,c,-7.5,l,5,c,7.5], width:10},
-	'(': {start: [12,0], instructions: [a,20,c,35,' 0 0 0 ',0,c,60], width:10},
-	')': {start: [2,0], instructions: [a,20,c,35,' 0 0 1 ',0,c,60], width:10},
-	'_': {start: [0,65], instructions: [h,25], width:25},
-	'=': {start: [2,25], instructions: [h,20,m0,10,h,-20], width:25},
-};
+var fonts = {};
+
 if(!kerningtable) kerningtable = {};
 function adjustKern(delta) {
     var i = document.getElementById('text').selectionStart;
@@ -192,6 +107,7 @@ function drawText(newText) {
 	var letterWidthAdjust = 0;
 	var x = 0;
 	var pathWidth = [];
+	var letters = fonts[config.font];
 	var char, letter;
 	for(var i = 0; i < config.text.length; i++) {
 		char = config.text.charAt(i);
@@ -286,12 +202,18 @@ function build(letter, startPos) {
 	var absX = letter.start[0];
 	var absY = letter.start[1];
 	var path = "M" + ((startPos + absX) * config.size) + c + (absY * config.size);
-	var step, nextStep;
+	var step, nextStep, numberPrev = false;
 	
 	for(var i = 0; i < letter.instructions.length; i++) {
 	    step = letter.instructions[i];
-		if(isNumber(step)) path += (step * config.size);
-		else path += step;
+		if(isNumber(step)) {
+			if(numberPrev) path += ',';
+			path += (step * config.size);
+			numberPrev = true;
+		} else {
+			path += step;
+			numberPrev = false;
+		}
 	}
 	return path;
 }
@@ -366,17 +288,37 @@ function updateDisplay() {
 	else document.getElementById('kerningEdit').checked = config.kerningEdit = false;
 	instructions.style.display = display;
 }
+function updateFilename(evt) {
+	var event = evt || window.event;
+	var value = event.target.value || 'download-filename.svg';
+	document.getElementById('imagelink').setAttribute('download', value);
+	event.target.value = value;
+}
 function pageLoad() {
+	// Initialize form values.
 	document.getElementById('text').focus();
 	document.getElementById('size').value = config.sizeValue;
 	document.getElementById('lineSpacing').value = config.lineSpacing;
 	document.getElementById('tracking').value = config.tracking;
 	document.getElementById('angle').value = config.angle;
+	
+	// Add Fonts to selection control.
+	var selectFont = document.getElementById('font');
+	var fontList = Object.keys(fonts);
+	console.log(fonts);
+	for(var i = 0; i < fontList.length; i++) {
+		var option = document.createElement("option");
+		option.text = option.value = fontList[i];
+		selectFont.add(option);
+	}
 }
 </script>
+<script src="Text2Vector.js"></script>
+<script src="T2V-Bauhaus.js"></script>
 </head>
 <body class="bg-light" onload="pageLoad();">
-
+	<div class="version">version 1.1.2</div>
+	
     <div class="container">
 
 		<div class="py-5 text-center">
@@ -397,7 +339,9 @@ function pageLoad() {
 			  <div class="card mt-3">
 				<div class="card-body">
 					<button type="button" class="btn btn-outline-primary btn-sm" onclick="copyToClipboard()">Copy SVG To Clipboard</button>
-					<a id="imagelink" class="btn btn-primary btn-sm" download="vector_text.svg" href="">Download SVG</a>
+					
+					<a id="imagelink" class="btn btn-primary btn-sm download" download="download-filename.svg" href="">Download SVG</a>
+					<input type="text" id="filename" onchange="updateFilename(event)" value="download-filename.svg" class="download" />
 				</div>
 			  </div>
 			</div>
@@ -407,16 +351,10 @@ function pageLoad() {
 
 				<div class="row">
 				  <div class="col-md-6 mb-3">
-					<label for="size">Font Size</label>
-					<input id="size" type="number" min="6" class="form-control" onkeydown="return allowNumbers(event,'sizeValue')" onpaste="return false" onchange="updateValue(event,'sizeValue')">
+					<label for="font">Font</label>
+					<select id="font" class="custom-select d-block w-100" onchange="config.font = this.value; drawText();">
+					</select>
 				  </div>
-				  <div class="col-md-6 mb-3">
-					<label for="lineSpacing">Line Spacing</label>
-					<input id="lineSpacing" type="number" min="0" class="form-control" onkeydown="return allowNumbers(event,'lineSpacing')" onpaste="return false" onchange="updateValue(event,'lineSpacing')">
-				  </div>
-				</div>
-
-				<div class="row">
 				  <div class="col-md-6 mb-3">
 					<label for="alignment">Text Alignment</label>
 					<select id="alignment" class="custom-select d-block w-100" onchange="config.alignment = this.value; drawText();">
@@ -425,11 +363,23 @@ function pageLoad() {
 						<option value="right">Right</option>
 					</select>
 				  </div>
-				  <div class="col-md-6 mb-3">
+				</div>
+				
+				<div class="row">
+				  <div class="col-md-4 mb-2">
+					<label for="size">Font Size</label>
+					<input id="size" type="number" min="6" class="form-control" onkeydown="return allowNumbers(event,'sizeValue')" onpaste="return false" onchange="updateValue(event,'sizeValue')">
+				  </div>
+				  <div class="col-md-4 mb-2">
 					<label for="tracking">Tracking</label>
 					<input id="tracking" type="number" min="-30" class="form-control" onkeydown="return allowNumbers(event,'tracking')" onpaste="return false" onchange="updateValue(event,'tracking')">
 				  </div>
+				  <div class="col-md-4 mb-2">
+					<label for="lineSpacing">Line Spacing</label>
+					<input id="lineSpacing" type="number" min="0" class="form-control" onkeydown="return allowNumbers(event,'lineSpacing')" onpaste="return false" onchange="updateValue(event,'lineSpacing')">
+				  </div>
 				</div>
+				
 				<hr class="mb-4">
 				<div class="row">
 					<div class="col-md-6 mb-3">
