@@ -1,0 +1,17 @@
+.version {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 40px 80px;
+	font-size: 12px;
+	cursor: default;
+}
+
+a + input {
+	margin-right: 5px;
+    padding-bottom: 3px;
+}
+
+.download {
+	float: right;
+}
