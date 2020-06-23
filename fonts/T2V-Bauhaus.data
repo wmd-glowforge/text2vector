@@ -1,7 +1,7 @@
 fonts["T2V-Bauhaus"] = {
 	'!': {start: [5,0], instructions: [v,40,m,-0.5,10,a,1,1,' 0 1 1 ',0,0.5], width:10},
 	'"': {start: [5,0], instructions: [v,10,m,5,c0,v,-10], width:15},
-	'#': {start: [10,12], instructions: [l,-5,35,m,10,c0,l,5,-35,m,6,12.5,h,-25,m,-2,10,h,25], width:30},
+	'#': {start: [10,12], instructions: [l,-5,35,m,10,c0,l,5,-35,m,6,12.5,h,-25,m,-2,10,h,25], width:25},
 	'$': {start: [25,5], instructions: [h,-17,a,8,8,' 0 0 0 ',-3.75,15,l,17,10,a,8,8,' 0 0 1 ',-4.25,14.9,h,-17,m,12.5,5,v,-50], width:25},
 	'%': {start: [5,15], instructions: [a,5,5,' 0 1 0 ',0.5,c0,m,10,30,a,5,5,' 0 1 0 ',-0.5,c0,m,-15,c0,l,20,-30], width:25},
 	'&': {start: [28,50], instructions: [l,-25,-35,a,3,3,' 0 0 1 ',3,-3,h,20,m,-17,10,a,16,14.5,' 0 1 0 ',14,c0], width:32},
