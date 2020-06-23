@@ -4,24 +4,25 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <title>Text2Vector</title>
 <link rel="stylesheet" href="Text2Vector.css">
-<script src="kerningtable.data"></script>
 <script>
 // variables to make the path notation easier to type.
 var a = 'a', h = 'h', v = 'v', l = 'l', m = 'm', m0 = 'm0,', c = ',', c0 = ',0', z = 'z';
 var config = {
-    font: "Text2Vector",
-	text: "",
-	size: 1, sizeValue: 50,
-	tracking: 10,
-	monospace: false,
-    kerning: true,
-    kerningEdit: false,
-	angle: 10,
-	italic: false,
-	lineSpacing: 18,
-	alignment: 'left',
-	scaleView: false
+    font: localStorage.getItem('font') || "Text2Vector",
+	text: localStorage.getItem('text') || "",
+	size: (parseInt(localStorage.getItem('sizeValue')) / 50) || 1, 
+	sizeValue: parseInt(localStorage.getItem('sizeValue')) || 50,
+	tracking: parseInt(localStorage.getItem('tracking')) || 10,
+	monospace: localStorage.getItem('monospace') == 'true', // default to false
+    kerning: localStorage.getItem('kerning') != 'false', // default to true
+    kerningEdit: localStorage.getItem('kerningEdit') == 'true', // default to false
+	angle: parseInt(localStorage.getItem('angle')) || 10,
+	italic: localStorage.getItem('italic') == 'true', // default to false
+	lineSpacing: parseInt(localStorage.getItem('lineSpacing')) || 18,
+	alignment: localStorage.getItem('alignment') || 'left',
+	scaleView: localStorage.getItem('scaleView') == 'true', // default to false
 };
+console.log(config)
 var minValue = {
 	sizeValue: 6,
 	tracking: -30,
@@ -33,23 +34,23 @@ var maxValue = {
 }
 var fonts = {};
 
-if(!kerningtable) kerningtable = {};
 function adjustKern(delta) {
     var i = document.getElementById('text').selectionStart;
     var kernpair = config.text.charAt(i-1) + config.text.charAt(i);
     if (kernpair.length==2) {
-        var kerntest = kerningtable[kernpair];
+    	if(!fonts[config.font].kerningtable) fonts[config.font].kerningtable = {};
+        var kerntest = fonts[config.font].kerningtable[kernpair];
         if (!kerntest) {
             kerntest = 1.0;
         }
         kerntest = kerntest + delta;
-        kerningtable[kernpair] = kerntest;
+        fonts[config.font].kerningtable[kernpair] = kerntest;
     }
 }
 function dumpKernTableToConsole() {
-    console.log(JSON.stringify(kerningtable));
-    var data = 'var kerningtable = ' + JSON.stringify(kerningtable) + ';';
-    download(data, 'kerningtable.data', 'text/plain');
+    console.log(JSON.stringify(fonts[config.font].kerningtable));
+    var data = 'fonts["' + config.font + '] = ' + JSON.stringify(fonts[config.font]) + ';';
+    download(data, config.font + '.data', 'text/plain');
 }
 function download(data, filename, type) {
     var file = new Blob([data], {type: type});
@@ -94,7 +95,8 @@ function allowKernEdit(evt, propName) {
 }
 function getKern(i) {
     var kernpair = config.text.charAt(i) + config.text.charAt(i+1);
-    var kerntest = kerningtable[kernpair];
+    if(!fonts[config.font].kerningtable) fonts[config.font].kerningtable = {};
+    var kerntest = fonts[config.font].kerningtable[kernpair];
     if(config.kerning && kerntest != undefined) return kerntest;
     else return 1;
 }
@@ -103,6 +105,7 @@ function isNumber(value) {
 }
 function drawText(newText) {
 	if(newText != undefined) config.text = newText;
+	localStorage.setItem('text', config.text);
 	var vectorPath = [""];
 	var letterWidthAdjust = 0;
 	var x = 0;
@@ -272,14 +275,22 @@ function updateValue(evt, propName) {
 		if(max && config[propName] > max) event.target.value = config[propName] = max;
 		if(propName == 'sizeValue') config.size = value / 50;
 		drawText();
+		localStorage.setItem(propName,value);
 	}
 }
 function setProperty(evt, propName) {
 	var event = evt || windoe.event;
 	config[propName] = event.target.checked;
-	if(propName == 'monospace' && event.target.checked) { document.getElementById('kerning').checked = config['kerning'] = false;}
-	if(propName == 'kerning' && event.target.checked) { document.getElementById('monospace').checked = config['monospace'] = false;}
+	if(propName == 'monospace' && event.target.checked) { 
+		document.getElementById('kerning').checked = config['kerning'] = false;
+		localStorage.setItem('kerning', 'false');
+	}
+	if(propName == 'kerning' && event.target.checked) { 
+		document.getElementById('monospace').checked = config['monospace'] = false;
+		localStorage.setItem('monospace', 'false');
+	}
 	drawText();
+	localStorage.setItem(propName, event.target.checked ? 'true' : 'false');
 }
 function updateDisplay() {
 	var instructions = document.getElementById('editKerningInstructions');
@@ -297,10 +308,16 @@ function updateFilename(evt) {
 function pageLoad() {
 	// Initialize form values.
 	document.getElementById('text').focus();
+	document.getElementById('text').value = config.text;
 	document.getElementById('size').value = config.sizeValue;
 	document.getElementById('lineSpacing').value = config.lineSpacing;
 	document.getElementById('tracking').value = config.tracking;
 	document.getElementById('angle').value = config.angle;
+	document.getElementById('italic').checked = !!config.italic;
+	document.getElementById('monospace').checked = !!config.monospace;
+	document.getElementById('kerning').checked = !!config.kerning;
+	document.getElementById('kerningEdit').checked = !!config.kerningEdit;
+	document.getElementById('scaleView').checked = !!config.scaleView;
 	
 	// Add Fonts to selection control.
 	var selectFont = document.getElementById('font');
@@ -311,6 +328,7 @@ function pageLoad() {
 		option.text = option.value = fontList[i];
 		selectFont.add(option);
 	}
+	drawText();
 }
 </script>
 <script src="fonts/Text2Vector.js"></script>
@@ -432,7 +450,7 @@ function pageLoad() {
 						<li>[F2] Increase character spacing by 10%
 						<li>[F3] Decrease character spacing by 1%
 						<li>[F4] Increase character spacing by 1%
-						<li>[F5] Save changes to "kerningtable.js" file (be sure to replace the existing file with this new one)
+						<li>[F5] Save changes to "{font name}.data" file (be sure to replace the existing file with this new one)
 					</ul>
 				</div>
 
