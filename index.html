@@ -22,7 +22,6 @@ var config = {
 	alignment: localStorage.getItem('alignment') || 'left',
 	scaleView: localStorage.getItem('scaleView') == 'true', // default to false
 };
-console.log(config)
 var minValue = {
 	sizeValue: 6,
 	tracking: -30,
@@ -322,7 +321,6 @@ function pageLoad() {
 	// Add Fonts to selection control.
 	var selectFont = document.getElementById('font');
 	var fontList = Object.keys(fonts);
-	console.log(fonts);
 	for(var i = 0; i < fontList.length; i++) {
 		var option = document.createElement("option");
 		option.text = option.value = fontList[i];
@@ -331,10 +329,10 @@ function pageLoad() {
 	drawText();
 }
 </script>
-<script src="fonts/Text2Vector.js"></script>
-<script src="fonts/T2V-Bauhaus.js"></script>
-<script src="fonts/T2V-Banks Miles.js"></script>
-<script src="fonts/T2V-St Marie.js"></script>
+<script src="fonts/Text2Vector.data"></script>
+<script src="fonts/T2V-Bauhaus.data"></script>
+<script src="fonts/T2V-Banks Miles.data"></script>
+<script src="fonts/T2V-St Marie.data"></script>
 </head>
 <body class="bg-light" onload="pageLoad();">
 	<div class="version">version 1.1.3</div>
