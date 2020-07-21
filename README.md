@@ -6,7 +6,7 @@ This source is hosted on GitHub Pages: https://wmd-glowforge.github.io/text2vect
 
 The original discussion started at: https://community.glowforge.com/t/text2vector-free-vector-text-generator/63916
 
-Learn more about Glowforge: https://glowforge.us/f/MAJFORQN
+Learn more about Glowforge: https://glowforge.us/f/MAJFORQN (and save some money with this code!)
 
 ## Installation
 
