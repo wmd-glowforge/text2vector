@@ -2,6 +2,8 @@
 
 Text2Vector is a simple HTML page created to be able to generate vector text for use with the Glowforge (or any CNC router).
 
+This source is stored on GitHub: https://github.com/wmd-glowforge/text2vector
+
 This source is hosted on GitHub Pages: https://wmd-glowforge.github.io/text2vector/ 
 
 The original discussion started at: https://community.glowforge.com/t/text2vector-free-vector-text-generator/63916
